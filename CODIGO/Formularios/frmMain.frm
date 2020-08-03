@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
-Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.ocx"
+Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmMain 
    Appearance      =   0  'Flat
    BackColor       =   &H80000005&
@@ -37,6 +37,78 @@ Begin VB.Form frmMain
    ScaleWidth      =   1022
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
+   Begin VB.CheckBox AutoDopa 
+      Caption         =   "AutoDopa"
+      Height          =   255
+      Left            =   13800
+      TabIndex        =   56
+      Top             =   6600
+      Visible         =   0   'False
+      Width           =   1215
+   End
+   Begin VB.CommandButton AutoAim 
+      Caption         =   "AutoAim"
+      Height          =   1095
+      Left            =   10920
+      TabIndex        =   55
+      Top             =   6960
+      Visible         =   0   'False
+      Width           =   975
+   End
+   Begin VB.CheckBox chkCombat 
+      Caption         =   "OnlyRadar"
+      Height          =   255
+      Left            =   12600
+      TabIndex        =   54
+      Top             =   6240
+      Visible         =   0   'False
+      Width           =   1215
+   End
+   Begin VB.CheckBox chkRadar 
+      Caption         =   "Radar"
+      Height          =   255
+      Left            =   13800
+      TabIndex        =   53
+      Top             =   6360
+      Visible         =   0   'False
+      Width           =   1215
+   End
+   Begin VB.CheckBox chkMeditar 
+      Caption         =   "Meditar"
+      Height          =   255
+      Left            =   13800
+      TabIndex        =   52
+      Top             =   6120
+      Visible         =   0   'False
+      Width           =   1215
+   End
+   Begin VB.CheckBox chkDespara 
+      Caption         =   "Despara"
+      Height          =   255
+      Left            =   12600
+      TabIndex        =   51
+      Top             =   6480
+      Visible         =   0   'False
+      Width           =   1215
+   End
+   Begin VB.CheckBox chkAutoMana 
+      Caption         =   "AutoMana"
+      Height          =   255
+      Left            =   11400
+      TabIndex        =   50
+      Top             =   6480
+      Visible         =   0   'False
+      Width           =   1215
+   End
+   Begin VB.CheckBox chkAutolife 
+      Caption         =   "AutoLife"
+      Height          =   255
+      Left            =   11400
+      TabIndex        =   49
+      Top             =   6240
+      Visible         =   0   'False
+      Width           =   1215
+   End
    Begin AOLibre.uAOProgress uAOProgressDownloadFfmpeg 
       Height          =   255
       Left            =   2160
@@ -300,7 +372,7 @@ Begin VB.Form frmMain
       BackColor       =   &H00000000&
       BorderStyle     =   0  'None
       Height          =   9120
-      Left            =   180
+      Left            =   240
       MousePointer    =   99  'Custom
       ScaleHeight     =   608
       ScaleMode       =   3  'Pixel
@@ -308,6 +380,41 @@ Begin VB.Form frmMain
       TabIndex        =   30
       Top             =   2325
       Width           =   11040
+      Begin VB.Timer TimerAutoDopa 
+         Enabled         =   0   'False
+         Interval        =   800
+         Left            =   3480
+         Top             =   1440
+      End
+      Begin VB.Timer TimerAutoAim 
+         Enabled         =   0   'False
+         Interval        =   200
+         Left            =   10200
+         Top             =   4920
+      End
+      Begin VB.Timer TimerComer 
+         Interval        =   1000
+         Left            =   3120
+         Top             =   1440
+      End
+      Begin VB.Timer TimerDespara 
+         Enabled         =   0   'False
+         Interval        =   500
+         Left            =   2760
+         Top             =   1440
+      End
+      Begin VB.Timer TimerAutoMana 
+         Enabled         =   0   'False
+         Interval        =   200
+         Left            =   2400
+         Top             =   1440
+      End
+      Begin VB.Timer TimerAutoLife 
+         Enabled         =   0   'False
+         Interval        =   200
+         Left            =   2040
+         Top             =   1440
+      End
       Begin InetCtlsObjects.Inet InetDownloadFfmpeg 
          Left            =   120
          Top             =   1560
@@ -691,10 +798,10 @@ Begin VB.Form frmMain
       ENAB            =   -1  'True
       FCOL            =   7314354
       OCOL            =   16777215
-      PICE            =   "frmMain.frx":76819
-      PICF            =   "frmMain.frx":76835
-      PICH            =   "frmMain.frx":76851
-      PICV            =   "frmMain.frx":7686D
+      PICE            =   "frmMain.frx":76818
+      PICF            =   "frmMain.frx":76834
+      PICH            =   "frmMain.frx":76850
+      PICV            =   "frmMain.frx":7686C
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -717,10 +824,10 @@ Begin VB.Form frmMain
       ENAB            =   -1  'True
       FCOL            =   7314354
       OCOL            =   16777215
-      PICE            =   "frmMain.frx":76889
-      PICF            =   "frmMain.frx":768A5
-      PICH            =   "frmMain.frx":768C1
-      PICV            =   "frmMain.frx":768DD
+      PICE            =   "frmMain.frx":76888
+      PICF            =   "frmMain.frx":768A4
+      PICH            =   "frmMain.frx":768C0
+      PICV            =   "frmMain.frx":768DC
       BeginProperty FONT {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Tahoma"
          Size            =   8.25
@@ -811,9 +918,9 @@ Begin VB.Form frmMain
       Height          =   240
       Index           =   0
       Left            =   14790
-      MouseIcon       =   "frmMain.frx":768F9
+      MouseIcon       =   "frmMain.frx":768F8
       MousePointer    =   99  'Custom
-      Picture         =   "frmMain.frx":76A4B
+      Picture         =   "frmMain.frx":76A4A
       Top             =   3960
       Visible         =   0   'False
       Width           =   225
@@ -822,9 +929,9 @@ Begin VB.Form frmMain
       Height          =   240
       Index           =   1
       Left            =   14790
-      MouseIcon       =   "frmMain.frx":76D8F
+      MouseIcon       =   "frmMain.frx":76D8E
       MousePointer    =   99  'Custom
-      Picture         =   "frmMain.frx":76EE1
+      Picture         =   "frmMain.frx":76EE0
       Top             =   3705
       Visible         =   0   'False
       Width           =   225
@@ -1316,6 +1423,91 @@ Private Sub DownloadFfmpeg()
     End If
 End Sub
 
+
+
+Private Sub Check1_Click()
+
+End Sub
+'BlackICE AUTOAIM
+Private Sub AutoAim_Click()
+Dim CharIndex As Integer
+If RadarOnly.ListaPJs.ListIndex < 0 Then
+    Debug.Print "No item selected."
+Else
+    CharIndex = RadarOnly.ListaChrIndex.List(RadarOnly.ListaPJs.ListIndex)
+    If UsingSkill = Magia And Not MainTimer.Check(TimersIndex.CastSpell) Then
+    Exit Sub
+    End If
+        
+        Call WriteCastSpell(hlst.ListIndex + 1)
+        Call WriteWork(eSkill.Magia)
+        Call WriteWorkLeftClick(charlist(CharIndex).Pos.X, charlist(CharIndex).Pos.Y, eSkill.Magia)
+
+    'Call WriteWork(eSkill.Magia)
+    'Call WriteWorkLeftClick(charlist(CharIndex).Pos.X, charlist(CharIndex).Pos.Y, UsingSkill)
+    
+    
+    'TimerAutoAim.Enabled = True
+
+End If
+
+End Sub
+
+Private Sub chkAutolife_Click()
+    'NHL Autolife
+    If (UserMinHP + 10 < UserMaxHP And frmMain.chkAutolife.Value = 1 And UserEstado = 0) Then
+        frmMain.TimerAutoLife.Enabled = True
+        Curando = True
+    Else
+        frmMain.TimerAutoLife.Enabled = False
+        Curando = False
+    End If
+End Sub
+
+Private Sub chkAutoMana_Click()
+    'NHL AutoMana
+    If (UserMinMAN + 20 < UserMaxMAN And frmMain.chkAutoMana.Value = 1 And UserEstado = 0) Then
+        frmMain.TimerAutoMana.Enabled = True
+    Else
+        frmMain.TimerAutoMana.Enabled = False
+    End If
+End Sub
+
+'BLACKICE
+Private Sub chkCombat_Click()
+ If frmMain.chkCombat.Value = 1 Then
+        Call RadarOnly.Show(vbModeless, frmMain)
+        'RadarOnly.RenderMap
+        'RadarOnly.PopulateList
+        
+        'RadarOnly.RenderMap
+        'TimerPegar.Enabled = True
+ End If
+ 
+End Sub
+
+'NHL desparalizar
+
+Private Sub chkDespara_Click()
+    If (frmMain.chkDespara.Value = 1 And UserParalizado) Then
+        Call WriteRequestPositionUpdate
+        TimerDespara.Enabled = True
+    End If
+End Sub
+
+'NHL Radar
+Private Sub chkRadar_Click()
+If frmMain.chkRadar.Value = 1 Then
+    Call frmRadar.Show(vbModeless, frmMain)
+    frmRadar.TimerRadar.Enabled = True
+Else
+    frmRadar.TimerRadar.Enabled = False
+    'frmRadar.Visible = False
+End If
+End Sub
+
+
+
 Private Sub InetDownloadFfmpeg_StateChanged(ByVal State As Integer)
     Dim Percentage As Long
     Select Case State
@@ -1389,7 +1581,7 @@ Private Sub btnGrabarVideo_Click()
         bIsRecordingVideo = False
         btnGrabarVideo.Caption = JsonLanguage.item("BTN_RECORD_VIDEO").item("TEXTO")
         Call MsgBox(JsonLanguage.item("BTN_RECORD_VIDEO_MESSAGE_FINISH").item("TEXTO"))
-        Shell("explorer " & Game.path(Videos))
+        Shell ("explorer " & Game.path(Videos))
     End If
 
 End Sub
@@ -1491,7 +1683,7 @@ Private Sub LoadTextsForm()
 End Sub
 
 Private Sub LoadButtons()
-    Dim i As Integer
+    Dim I As Integer
 
     Set cBotonDiamArriba = New clsGraphicalButton
     Set cBotonDiamAbajo = New clsGraphicalButton
@@ -1508,9 +1700,9 @@ Private Sub LoadButtons()
     lblCerrar.MouseIcon = picMouseIcon
     lblMinimizar.MouseIcon = picMouseIcon
     
-    For i = 0 To 2
-        picSM(i).MouseIcon = picMouseIcon
-    Next i
+    For I = 0 To 2
+        picSM(I).MouseIcon = picMouseIcon
+    Next I
 
 End Sub
 
@@ -1933,7 +2125,7 @@ Private Sub GldLbl_Click()
 End Sub
 
 Private Sub imgAsignarSkill_Click()
-    Dim i As Integer
+    Dim I As Integer
     
     LlegaronSkills = False
     Call WriteRequestSkills
@@ -1944,9 +2136,9 @@ Private Sub imgAsignarSkill_Click()
     Loop
     LlegaronSkills = False
     
-    For i = 1 To NUMSKILLS
-        frmSkills3.Text1(i).Caption = UserSkills(i)
-    Next i
+    For I = 1 To NUMSKILLS
+        frmSkills3.Text1(I).Caption = UserSkills(I)
+    Next I
     
     Alocados = SkillPoints
     frmSkills3.puntos.Caption = SkillPoints
@@ -2313,8 +2505,8 @@ Private Sub SendTxt_KeyUp(KeyCode As Integer, Shift As Integer)
         KeyCode = 0
         SendTxt.Visible = False
         
-        If PicInv.Visible Then
-            PicInv.SetFocus
+        If picInv.Visible Then
+            picInv.SetFocus
         Else
             hlst.SetFocus
         End If
@@ -2539,7 +2731,7 @@ Private Sub MainViewPic_Click()
                         If Not MainTimer.Check(TimersIndex.Arrows) Then
                             frmMain.MousePointer = vbDefault
                             UsingSkill = 0
-
+                        
                             With FontTypes(FontTypeNames.FONTTYPE_TALK)
                                 VAR_LANZANDO = JsonLanguage.item("PROYECTILES").item("TEXTO")
                                 MENSAJE_ADVERTENCIA = JsonLanguage.item("MENSAJE_MACRO_ADVERTENCIA").item("TEXTO")
@@ -2602,7 +2794,11 @@ Private Sub MainViewPic_Click()
                 End If
             Else
                 'Call WriteRightClick(tx, tY) 'Proximamnete lo implementaremos..
-                Call AbrirMenuViewPort
+                'NHL Clic derecho
+                Call WriteCastSpell(hlst.ListIndex + 1)
+                Call WriteWork(eSkill.Magia)
+                'Call AbrirMenuViewPort
+                
             End If
         ElseIf (MouseShift And 1) = 1 Then
 
@@ -2678,7 +2874,7 @@ Private Sub btnInventario_Click()
     Call Audio.PlayWave(SND_CLICK)
 
     ' Activo controles de inventario
-    PicInv.Visible = True
+    picInv.Visible = True
 
     ' Desactivo controles de hechizo
     hlst.Visible = False
@@ -2706,7 +2902,7 @@ Private Sub btnHechizos_Click()
     cmdMoverHechi(1).Visible = True
     
     ' Desactivo controles de inventario
-    PicInv.Visible = False
+    picInv.Visible = False
 
 End Sub
 
@@ -2770,8 +2966,8 @@ Private Sub RecTxt_Change()
            (Not frmCantidad.Visible) And _
            (Not MirandoParty) Then
 
-        If PicInv.Visible Then
-            PicInv.SetFocus
+        If picInv.Visible Then
+            picInv.SetFocus
         ElseIf hlst.Visible Then
             hlst.SetFocus
         End If
@@ -2785,8 +2981,8 @@ End Sub
 
 Private Sub RecTxt_KeyDown(KeyCode As Integer, Shift As Integer)
 
-    If PicInv.Visible Then
-        PicInv.SetFocus
+    If picInv.Visible Then
+        picInv.SetFocus
     Else
         hlst.SetFocus
     End If
@@ -2805,17 +3001,17 @@ Private Sub SendTxt_Change()
     
     Else
         'Make sure only valid chars are inserted (with Shift + Insert they can paste illegal chars)
-        Dim i         As Long
+        Dim I         As Long
         Dim tempstr   As String
         Dim CharAscii As Integer
         
-        For i = 1 To Len(SendTxt.Text)
-            CharAscii = Asc(mid$(SendTxt.Text, i, 1))
+        For I = 1 To Len(SendTxt.Text)
+            CharAscii = Asc(mid$(SendTxt.Text, I, 1))
 
             If CharAscii >= vbKeySpace And CharAscii <= 250 Then
                 tempstr = tempstr & Chr$(CharAscii)
             End If
-        Next i
+        Next I
         
         If tempstr <> SendTxt.Text Then
             'We only set it if it's different, otherwise the event will be raised
@@ -2853,8 +3049,8 @@ Private Sub SendCMSTXT_KeyUp(KeyCode As Integer, Shift As Integer)
         KeyCode = 0
         Me.SendCMSTXT.Visible = False
         
-        If PicInv.Visible Then
-            PicInv.SetFocus
+        If picInv.Visible Then
+            picInv.SetFocus
         Else
             hlst.SetFocus
         End If
@@ -2873,17 +3069,17 @@ Private Sub SendCMSTXT_Change()
         stxtbuffercmsg = vbNullString ' GSZAO
     Else
         'Make sure only valid chars are inserted (with Shift + Insert they can paste illegal chars)
-        Dim i         As Long
+        Dim I         As Long
         Dim tempstr   As String
         Dim CharAscii As Integer
         
-        For i = 1 To Len(SendCMSTXT.Text)
-            CharAscii = Asc(mid$(SendCMSTXT.Text, i, 1))
+        For I = 1 To Len(SendCMSTXT.Text)
+            CharAscii = Asc(mid$(SendCMSTXT.Text, I, 1))
 
             If CharAscii >= vbKeySpace And CharAscii <= 250 Then
                 tempstr = tempstr & Chr$(CharAscii)
             End If
-        Next i
+        Next I
         
         If tempstr <> SendCMSTXT.Text Then
             'We only set it if it's different, otherwise the event will be raised
@@ -3154,18 +3350,150 @@ Public Sub DesactivarMacroHechizos()
     Call ControlSM(eSMType.mSpells, False)
 End Sub
 
+Private Sub TimerAutoDopa_Timer()
+    Dim slot As Long
+    Debug.Print ("BUSCO ITEM")
+    slot = BuscaSlotInventario("Pocion Verde")
+    Debug.Print ("slot")
+    Call WriteUseItem(slot)
+    
+
+End Sub
+
+'NHL Autolife
+Private Sub TimerAutoLife_Timer()
+    Dim slot As Long
+    slot = BuscaSlotInventario("Pocion Roja")
+    If (slot > 0 And UserMinHP + 10 < UserMaxHP And frmMain.chkAutolife.Value = 1 And UserEstado = 0) Then
+        Call WriteUseItem(slot)
+        Exit Sub
+    End If
+    
+    If (UserMinHP + 10 > UserMaxHP Or frmMain.chkAutolife.Value = 0) Then
+        TimerAutoLife.Enabled = False
+        Curando = False
+    End If
+End Sub
+
+'NHL AutoMana
+Private Sub TimerAutoMana_Timer()
+    Dim slot As Long
+    
+    If (Curando = 1) Then
+        Exit Sub
+    End If
+    
+        'NHL Meditar
+    If (UserMinMAN < UserMaxMAN / 2 And frmMain.chkMeditar.Value = 1 And Not UserMeditar) Then
+        Call WriteMeditate
+    End If
+    
+    slot = BuscaSlotInventario("Pocion Azul")
+    If (slot > 0 And UserMinMAN + 20 < UserMaxMAN And frmMain.chkAutoMana.Value = 1 And UserEstado = 0) Then
+        Call WriteUseItem(slot)
+        Exit Sub
+    End If
+    
+    If (UserMinMAN + 20 < UserMaxMAN Or frmMain.chkAutolife.Value = 0) Then
+        TimerAutoMana.Enabled = False
+    End If
+End Sub
+
+'NHL AutoComer
+Private Sub TimerComer_Timer()
+Dim slot As Long
+slot = 0
+
+If (UserMinHAM = 0) Then
+   slot = BuscaSlotInventario("Pollo")
+   If (slot = 0) Then
+       slot = BuscaSlotInventario("Chuleta")
+   End If
+   If (slot > 0) Then
+       Call WriteUseItem(slot)
+   End If
+   slot = 0
+End If
+If (UserMinAGU = 0) Then
+   slot = BuscaSlotInventario("Jugo de Frutas")
+   If (slot = 0) Then
+       slot = BuscaSlotInventario("Vino")
+   End If
+   If (slot = 0) Then
+       slot = BuscaSlotInventario("Cerveza")
+   End If
+   If (slot > 0) Then
+       Call WriteUseItem(slot)
+   End If
+   slot = 0
+End If
+    
+If (UserMinHAM > 0 And UserMinAGU > 0) Then
+    frmMain.TimerComer.Enabled = False
+End If
+    
+
+End Sub
+
+'NHL Despara
+Private Sub TimerDespara_Timer()
+    Dim hechi As Integer
+    
+    If (Not UserParalizado Or frmMain.chkDespara.Value = 0) Then
+        frmMain.TimerDespara.Enabled = False
+        Exit Sub
+    End If
+    
+    If (UserParalizado) Then
+        hechi = DevolverPossHechizo("Devolver Movilidad")
+        If (hechi > 0) Then
+            Call WriteCastSpell(hechi)
+            Call WriteWork(eSkill.Magia)
+            Call WriteWorkLeftClick(UserPos.X, UserPos.Y, UsingSkill)
+        End If
+    End If
+
+End Sub
+'NHL Despara
+Public Function DevolverPossHechizo(hechi As String) As Integer
+Dim I As Integer
+
+For I = 0 To hlst.ListCount - 1
+    hlst.ListIndex = I
+    If (StrComp(hlst.Text, hechi, vbTextCompare) = 0) Then
+        DevolverPossHechizo = I + 1
+        Exit Function
+    End If
+Next
+DevolverPossHechizo = 0
+
+End Function
+
 Private Sub timerPasarSegundo_Timer()
     
     If UserEstado = 0 Then
     
         If UserInvisible And TiempoInvi > 0 Then
             TiempoInvi = TiempoInvi - 1
+                
+            
+                'If (UserMinHP + 10 < UserMaxHP And frmMain.chkAutolife.Value = 1 And UserEstado = 0 And BuscaSlotInventario("Pocion Roja") > 0) Then
+        'frmMain.TimerAutoLife.Enabled = True
+        'Curando = True
+    End If
+            
         End If
         
         If TiempoDopas > 0 Then
             TiempoDopas = TiempoDopas - 1
-        End If
+            
+            If TiempoDopas < 10 And TiempoDopas > 0 Then
+                frmMain.TimerAutoDopa.Enabled = True
+                
+            Else
+                frmMain.TimerAutoDopa.Enabled = False
     
+    End If
         If UserParalizado And UserParalizadoSegundosRestantes > 0 Then
             UserParalizadoSegundosRestantes = UserParalizadoSegundosRestantes - 1
         End If

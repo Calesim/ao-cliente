@@ -19,6 +19,10 @@ Public Sub Char_Erase(ByVal CharIndex As Integer)
         If (CharIndex > LastChar) Then Exit Sub
                 
         If Map_InBounds(.Pos.X, .Pos.Y) Then  '// Posicion valida
+            'BLACKICE
+             'If (frmMain.chkCombat.Value = 1) Then
+            Call RadarOnly.DeleteCharToList(CharIndex, .Pos.X, .Pos.Y)
+            'End If
             MapData(.Pos.X, .Pos.Y).CharIndex = 0  '// Borramos el user
         End If
        
@@ -337,7 +341,7 @@ Public Sub Char_SetHeading(ByVal CharIndex As Long, ByVal Heading As Byte)
  
 End Sub
 
-Public Sub Char_SetName(ByVal CharIndex As Integer, ByVal name As String)
+Public Sub Char_SetName(ByVal CharIndex As Integer, ByVal Name As String)
  
     '**************************************************************
     'Author: Miqueas150
@@ -345,7 +349,7 @@ Public Sub Char_SetName(ByVal CharIndex As Integer, ByVal name As String)
     '
     '**************************************************************
  
-    If (Len(name) = 0) Then
+    If (Len(Name) = 0) Then
 
         Exit Sub
 
@@ -355,7 +359,7 @@ Public Sub Char_SetName(ByVal CharIndex As Integer, ByVal name As String)
  
         With charlist(CharIndex)
                
-            .Nombre = name
+            .Nombre = Name
             .Clan = mid$(.Nombre, getTagPosition(.Nombre))
  
             Exit Sub
@@ -542,7 +546,6 @@ Sub Char_MovebyPos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As 
     Dim addx     As Integer
     Dim addy     As Integer
     Dim nHeading As E_Heading
-    
     If (CharIndex <= 0) Then Exit Sub
 
     With charlist(CharIndex)
@@ -552,7 +555,12 @@ Sub Char_MovebyPos(ByVal CharIndex As Integer, ByVal nX As Integer, ByVal nY As 
                 
         '// Miqueas : Agrego este parchesito para evitar un run time
         If Not (Map_InBounds(X, Y)) Then Exit Sub
-
+        
+            'BLACKICE
+    'If (frmMain.chkCombat.Value = 1) Then
+    Call RadarOnly.HandleCharacterMove(CharIndex, nX, nY, .Pos.X, .Pos.Y)
+    'End If
+        
         MapData(X, Y).CharIndex = 0
         
         addx = nX - X

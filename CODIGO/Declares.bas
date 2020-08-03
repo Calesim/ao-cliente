@@ -31,7 +31,8 @@ Attribute VB_Name = "Mod_Declaraciones"
 'Pablo Ignacio Marquez
 
 Option Explicit
-
+'NHL Autolife
+Public Curando As Boolean
 Public IntervaloDopas As Long
 Public IntervaloInvi As Long
 Public TiempoInvi As Long
@@ -105,12 +106,13 @@ Public Const SND_NAVEGANDO As String = "50.wav"
 Public Const SND_DICE As String = "cupdice.Wav"
 
 ' Constantes de intervalo
+' BlackICE Interesante
 Public Enum eIntervalos
-    INT_MACRO_HECHIS = 2000
-    INT_MACRO_TRABAJO = 900
-    INT_ATTACK = 1500
-    INT_ARROWS = 1400
-    INT_CAST_SPELL = 1400
+    INT_MACRO_HECHIS = 2000 '2000
+    INT_MACRO_TRABAJO = 900 '900
+    INT_ATTACK = 1500       '1500
+    INT_ARROWS = 1400       '1400
+    INT_CAST_SPELL = 1400 '1400
     INT_CAST_ATTACK = 1000
     INT_WORK = 700
     INT_USEITEMU = 450
@@ -597,7 +599,7 @@ End Enum
 'Inventario
 Type Inventory
     OBJIndex As Integer
-    name As String
+    Name As String
     GrhIndex As Long
     Amount As Long
     Equipped As Byte
@@ -612,7 +614,7 @@ End Type
 
 Type NpCinV
     OBJIndex As Integer
-    name As String
+    Name As String
     GrhIndex As Long
     Amount As Integer
     Valor As Single
@@ -652,7 +654,7 @@ Type tEstadisticasUsu
 End Type
 
 Type tItemsConstruibles
-    name As String
+    Name As String
     OBJIndex As Integer
     GrhIndex As Long
     LinH As Integer
@@ -666,14 +668,14 @@ Type tItemsConstruibles
 End Type
 
 Type tItemCrafteo
-    name As String
+    Name As String
     OBJIndex As Integer
     GrhIndex As Long
     Amount As Integer
 End Type
 
 Type tItemArtesano
-    name As String
+    Name As String
     OBJIndex As Integer
     GrhIndex As Long
     

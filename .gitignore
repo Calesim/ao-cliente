@@ -22,3 +22,7 @@ Thumbs.db
 $RECYCLE.BIN/
 *.lnk
 *.stackdump
+*.exe
+Argentum2.rar
+Errores.log
+INIT/Config.ini

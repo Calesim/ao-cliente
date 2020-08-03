@@ -3,7 +3,7 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmOpciones 
    BackColor       =   &H8000000A&
    BorderStyle     =   0  'None
-   ClientHeight    =   7185
+   ClientHeight    =   7530
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   4830
@@ -23,11 +23,28 @@ Begin VB.Form frmOpciones
    MaxButton       =   0   'False
    MinButton       =   0   'False
    Picture         =   "frmOpciones.frx":0152
-   ScaleHeight     =   479
+   ScaleHeight     =   502
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   322
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
+   Begin VB.CheckBox chkCheto 
+      Caption         =   "Activar Modo Cheto"
+      BeginProperty Font 
+         Name            =   "Tahoma"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   1200
+      TabIndex        =   6
+      Top             =   7200
+      Width           =   2295
+   End
    Begin VB.ComboBox cmdLenguajesComboBox 
       BackColor       =   &H00004080&
       ForeColor       =   &H80000018&
@@ -46,7 +63,6 @@ Begin VB.Form frmOpciones
       TabIndex        =   4
       Text            =   "Seleccione skin"
       Top             =   480
-      Visible         =   1   'True
       Width           =   1575
    End
    Begin VB.TextBox txtCantMensajes 
@@ -296,6 +312,60 @@ Private bSoundActivated As Boolean
 Private bSoundEffectsActivated As Boolean
 
 Private loading As Boolean
+
+'NHL Chetos
+Private Sub chkCheto_Click()
+    If (chkCheto.Value = 0) Then
+        'Deshabilito Cheats
+        frmMain.chkAutolife.Value = 0
+        frmMain.TimerAutoLife.Enabled = False
+        frmMain.chkAutolife.Visible = False
+        
+        frmMain.chkAutoMana.Value = 0
+        frmMain.TimerAutoMana.Enabled = False
+        frmMain.chkAutoMana.Visible = False
+        
+        frmMain.chkMeditar.Enabled = False
+        frmMain.chkMeditar.Visible = False
+        
+        
+        frmMain.chkDespara.Value = 0
+        frmMain.chkDespara.Visible = False
+        
+        frmMain.chkRadar.Visible = False
+        frmMain.chkRadar.Value = 0
+        frmRadar.TimerRadar.Enabled = False
+        
+        
+        'frmMain.chkCombat.Value = 0
+        frmMain.chkCombat.Visible = False
+        frmMain.AutoAim.Visible = False
+        
+        frmMain.AutoDopa.Value = 0
+        frmMain.AutoDopa.Visible = False
+        
+        
+        'Form1.Visible = True
+    Else
+        frmMain.chkAutolife.Visible = True
+        
+        frmMain.chkAutoMana.Visible = True
+        
+        frmMain.chkMeditar.Visible = True
+        
+        frmMain.chkDespara.Visible = True
+        
+        frmMain.chkRadar.Visible = True
+        
+        frmMain.chkCombat.Visible = True
+        frmMain.AutoAim.Visible = True
+        frmMain.AutoDopa.Visible = True
+    End If
+End Sub
+
+
+
+
 
 Private Sub cmdLenguajesComboBox_Click()
 '***************************************************

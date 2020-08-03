@@ -53,7 +53,7 @@ Public Sub Map_DestroyObject(ByVal X As Byte, ByVal Y As Byte)
 
             With MapData(X, Y)
                   '.objgrh.GrhIndex = 0
-                  .OBJInfo.ObjIndex = 0
+                  .OBJInfo.OBJIndex = 0
                   .OBJInfo.Amount = 0
                   Call GrhUninitialize(.ObjGrh)
         
@@ -130,12 +130,26 @@ Sub Map_MoveTo(ByVal Direccion As E_Heading)
       End Select
 
       If LegalOk And Not UserParalizado And Not UserDescansar And Not UserMeditar Then
+          
+                  Select Case Direccion
+           Case E_Heading.NORTH
+                Call RadarOnly.UpdateMyCharPos(UserPos.X, UserPos.Y, UserPos.X, UserPos.Y - 1)
+            Case E_Heading.EAST
+                Call RadarOnly.UpdateMyCharPos(UserPos.X, UserPos.Y, UserPos.X + 1, UserPos.Y)
+            Case E_Heading.SOUTH
+                Call RadarOnly.UpdateMyCharPos(UserPos.X, UserPos.Y, UserPos.X, UserPos.Y + 1)
+            Case E_Heading.WEST
+                Call RadarOnly.UpdateMyCharPos(UserPos.X, UserPos.Y, UserPos.X - 1, UserPos.Y)
+           End Select
           Call WriteWalk(Direccion)
           Call frmMain.ActualizarMiniMapa   'integrado por ReyarB
 
           Call Char_MovebyHead(UserCharIndex, Direccion)
           Call Char_MoveScreen(Direccion)
+          
+
       
+           
       Else
       
         If (charlist(UserCharIndex).Heading <> Direccion) Then

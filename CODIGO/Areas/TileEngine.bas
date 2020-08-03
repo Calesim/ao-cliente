@@ -228,7 +228,7 @@ End Type
 'Info de cada mapa
 Public Type mapInfo
     Music As String
-    name As String
+    Name As String
     StartPos As WorldPos
     MapVersion As Integer
 End Type
@@ -1402,7 +1402,7 @@ Private Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Integer, B
                 End If
             End If
             
-        ElseIf CharIndex = UserCharIndex Or (.Clan <> vbNullString And .Clan = charlist(UserCharIndex).Clan) Then
+        ElseIf .invisible Then
             
             'Draw Transparent Body
             If .Body.Walk(.Heading).GrhIndex Then
@@ -1503,19 +1503,19 @@ Private Sub RenderCharParticles(ByVal CharIndex As Integer, ByVal PixelOffsetX A
 ' Renderizamos las particulas fijadas en el char
 '****************************************************
 
-    Dim i As Integer
+    Dim I As Integer
     
     With charlist(CharIndex)
 
         If .Particle_Count > 0 Then
 
-            For i = 1 To .Particle_Count
+            For I = 1 To .Particle_Count
                         
-                If .Particle_Group(i) > 0 Then
-                    Call mDx8_Particulas.Particle_Group_Render(.Particle_Group(i), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY)
+                If .Particle_Group(I) > 0 Then
+                    Call mDx8_Particulas.Particle_Group_Render(.Particle_Group(I), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY)
                 End If
                             
-            Next i
+            Next I
     
         End If
     
@@ -1629,8 +1629,14 @@ Private Sub RenderName(ByVal CharIndex As Long, _
     Dim Pos   As Integer
     Dim line  As String
     Dim Color As Long
+    Dim Invis As String
+    Invis = "[INVISIBLE]"
    
     With charlist(CharIndex)
+
+        
+        
+    
         Pos = getTagPosition(.Nombre)
     
         If .priv = 0 Then
@@ -1651,14 +1657,21 @@ Private Sub RenderName(ByVal CharIndex As Long, _
         If Invi Then
             Color = D3DColorARGB(180, 150, 180, 220)
         End If
-
+         'Debug.Print ("Nombre: " & .Nombre)
         'Nick
         line = Left$(.Nombre, Pos - 2)
         Call DrawText(X + 16, Y + 30, line, Color, True)
             
         'Clan
         line = mid$(.Nombre, Pos)
+        
         Call DrawText(X + 16, Y + 45, line, Color, True)
+        
+        'BLACKICE
+        'invisible
+        'line = mid$(Invis, Pos)
+        
+        'Call DrawText(X + 16, Y + 45, line, Color, True)
 
     End With
 End Sub
