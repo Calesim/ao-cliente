@@ -771,7 +771,6 @@ Begin VB.Form frmMain
       _ExtentY        =   2937
       _Version        =   393217
       BackColor       =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       DisableNoScroll =   -1  'True
@@ -1325,6 +1324,9 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Dim BoldX As Long, BoldY As Long, BisMoving As Boolean
+
+Public SendTxtHasFocus As Boolean
+Public SendCMSTXTHasFocus As Boolean
 
 Public TX                  As Byte
 Public TY                  As Byte
@@ -1998,9 +2000,21 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
         Case CustomKeys.BindedKey(eKeyType.mKeyTalkWithGuild)
 
             If SendTxt.Visible Then Exit Sub
+            If charlist(UserCharIndex).Clan = vbNullString Then Exit Sub
+            
+            If SendCMSTXT.Visible And Not SendCMSTXTHasFocus Then
+                Call SendCMSTXT_SendText
+                Exit Sub
+            End If
             
             If (Not Comerciando) And (Not MirandoAsignarSkills) And (Not frmMSG.Visible) And (Not MirandoForo) And (Not frmEstadisticas.Visible) And (Not frmCantidad.Visible) Then
                 SendCMSTXT.Visible = True
+                
+                If Not Typing Then
+                    Call WriteSetTypingFlagFromUserCharIndex
+                    Typing = True
+                End If
+                
                 SendCMSTXT.SetFocus
             End If
         
@@ -2084,9 +2098,18 @@ Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 
             If SendCMSTXT.Visible Then Exit Sub
             
+            If SendTxt.Visible And Not SendTxtHasFocus Then
+                Call SendTxt_SendText
+                Exit Sub
+            End If
+            
             If (Not Comerciando) And (Not MirandoAsignarSkills) And (Not frmMSG.Visible) And (Not MirandoForo) And (Not frmEstadisticas.Visible) And (Not frmCantidad.Visible) Then
                 SendTxt.Visible = True
                 SendTxt.SetFocus
+                If Not Typing Then
+                    Call WriteSetTypingFlagFromUserCharIndex
+                    Typing = True
+                End If
             End If
             
     End Select
@@ -2425,6 +2448,10 @@ Private Sub RecTxt_MouseMove(Button As Integer, _
     StartCheckingLinks
 End Sub
 
+Private Sub SendCMSTXT_GotFocus()
+    SendCMSTXTHasFocus = True
+End Sub
+
 Private Sub SendCMSTXT_KeyDown(KeyCode As Integer, Shift As Integer)
     ' Para borrar el mensaje del chat de clanes
     If FirstTimeClanChat Then
@@ -2433,6 +2460,14 @@ Private Sub SendCMSTXT_KeyDown(KeyCode As Integer, Shift As Integer)
         ' Color original
         SendCMSTXT.ForeColor = &H80000018
     End If
+End Sub
+
+Private Sub SendCMSTXT_LostFocus()
+    SendCMSTXTHasFocus = False
+End Sub
+
+Private Sub SendTxt_GotFocus()
+ SendTxtHasFocus = True
 End Sub
 
 Private Sub SendTxt_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -2498,19 +2533,33 @@ Private Sub SendTxt_KeyUp(KeyCode As Integer, Shift As Integer)
 
     'Send text
     If KeyCode = vbKeyReturn Then
-        If LenB(stxtbuffer) <> 0 Then Call ParseUserCommand(stxtbuffer)
-        
+
+        Call SendTxt_SendText
+        KeyCode = 0
+    End If
+End Sub
+
+Public Sub SendTxt_SendText()
+'**************************************************************
+'Author: Unknown
+'Last Modify Date: 04/01/2020
+'08/01/2020: cucsifae - colapse en una funcion el mandar mensaje, en caso de no tener focus y apretar enter el mensaje se manda igual desde el KeyUp del mainform
+'**************************************************************
+        'Say
+        If LenB(stxtbuffer) <> 0 Then
+            Call ParseUserCommand(stxtbuffer)
+        End If
+
         stxtbuffer = vbNullString
         SendTxt.Text = vbNullString
-        KeyCode = 0
-        SendTxt.Visible = False
+        Me.SendTxt.Visible = False
         
         If picInv.Visible Then
             picInv.SetFocus
         Else
             hlst.SetFocus
         End If
-    End If
+        
 End Sub
 
 Private Sub Second_Timer()
@@ -3038,7 +3087,17 @@ Private Sub SendCMSTXT_KeyUp(KeyCode As Integer, Shift As Integer)
  
     'Send text
     If KeyCode = vbKeyReturn Or KeyCode = CustomKeys.BindedKey(eKeyType.mKeyTalkWithGuild) Then
-
+        Call SendCMSTXT_SendText
+        KeyCode = 0 'esto no deberia ser necesario no se esta pasando el keycode por ref, no le encuentro sentido ponerlo en 0.
+    End If
+    
+End Sub
+Public Sub SendCMSTXT_SendText()
+'**************************************************************
+'Author: Unknown
+'Last Modify Date: 04/01/2020
+'08/01/2020: cucsifae - colapse en una funcion el mandar mensaje, en caso de no tener focus y apretar enter el mensaje se manda igual desde el KeyUp del mainform
+'**************************************************************
         'Say
         If LenB(stxtbuffercmsg) <> 0 Then
             Call WriteGuildMessage(stxtbuffercmsg)
@@ -3046,7 +3105,6 @@ Private Sub SendCMSTXT_KeyUp(KeyCode As Integer, Shift As Integer)
 
         stxtbuffercmsg = vbNullString
         SendCMSTXT.Text = vbNullString
-        KeyCode = 0
         Me.SendCMSTXT.Visible = False
         
         If picInv.Visible Then
@@ -3054,7 +3112,6 @@ Private Sub SendCMSTXT_KeyUp(KeyCode As Integer, Shift As Integer)
         Else
             hlst.SetFocus
         End If
-    End If
 End Sub
 
 Private Sub SendCMSTXT_KeyPress(KeyAscii As Integer)
@@ -3162,6 +3219,10 @@ Public Sub CallbackMenuFashion(ByVal MenuId As Long, ByVal Sel As Long)
                     Call WriteCommerceStart
             End Select
     End Select
+End Sub
+
+Private Sub SendTxt_LostFocus()
+    SendTxtHasFocus = False
 End Sub
 
 Private Sub SonidosMapas_Timer()
